@@ -72,6 +72,6 @@ public class Main implements Serializable {
         listeQuestions.afficherListe();
         qList.get(1).afficher();
         qList.get(1).saisir();
-
+//TODO gérer la récupération des questions en fonction du thème choisi, initialiser suffisament de questions par thèmes
     }
 }
