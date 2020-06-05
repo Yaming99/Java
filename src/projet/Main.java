@@ -1,20 +1,30 @@
 package projet;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Vector;
 
-public class Main {
+public class Main implements Serializable {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  throws IOException, ClassNotFoundException{
 
-        ArrayList<String> list = new ArrayList<String>();
-        list.add("test1");
-        list.add("test2");
-        list.add("test3");
-        list.add("test4");
-        list.add("test5");
-        list.add("test6");
+        ArrayList<String> list;
 
+        /** créaation fichier theme **/
+//        list.add("Histoire");
+//        list.add("Geographie");
+//        list.add("Voiture");
+//        list.add("Mathématiques");
+//        list.add("Francais");
+//        list.add("Cuisine");
+
+        File fichier = new File("src/projet/themesQ/themes.txt");
+//        ObjectOutputStream a = new ObjectOutputStream(new FileOutputStream(fichier));
+//        a.writeObject(list);
+
+        ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier));
+        list = (ArrayList<String>) b.readObject();
         Themes themes = new Themes(list);
         themes.afficher();
         themes.modifierTheme();

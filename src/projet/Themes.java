@@ -1,5 +1,9 @@
 package projet;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -32,7 +36,7 @@ public class Themes {
     }
 
     // modification d'un thème déjà créé
-    public void modifierTheme() {
+    public void modifierTheme() throws IOException {
         Scanner sc = new Scanner(System.in);
         System.out.println("Th\u00e8me \u00e0 modifier :");
         String theme = sc.nextLine();
@@ -43,6 +47,10 @@ public class Themes {
         } else {
             themes.set(themes.indexOf(theme), newTheme);
             System.out.println("Th\u00e8me modifi\u00e9.");
+
+            File fichier = new File("src/projet/themesQ/themes.txt");
+        ObjectOutputStream a = new ObjectOutputStream(new FileOutputStream(fichier));
+             a.writeObject(this.themes);
         }
     }
 
