@@ -1,10 +1,11 @@
 package projet;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Scanner;
 
-public class ListeQuestions {
+public class ListeQuestions   implements Serializable {
     private LinkedList<Question<? extends QType>> liste = null;
     private int indicateur = 0;
 
@@ -19,6 +20,7 @@ public class ListeQuestions {
             this.indicateur = 0;
         }
     }
+
 
     public void afficherListe() {
         System.out.println("Affichage des questions :");

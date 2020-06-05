@@ -16,7 +16,7 @@ public class RC implements QType {
         this.texte = texte;
         this.bonneRep = bonneRep;
     }
-
+//TODO mettre un ToLowerCase et suppression des espaces pour vérifier la réponse
     @Override
     public String toString() {
         return texte;

@@ -1,8 +1,9 @@
 package projet;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Question<T extends QType> {
+public class Question<T extends QType>  implements Serializable {
     private T texte;
     private int niveau;
     private static int nb = 0;
@@ -29,7 +30,7 @@ public class Question<T extends QType> {
 
     public Question(T texte, int niveau, String theme) {
         // texte ou theme vide ou null
-        if (theme.isBlank() || texte == null || theme == null) {
+        if (theme.isBlank() || texte == null) {
             throw new NullPointerException("Input vide.");
         }
         else if (niveau > 3 || niveau < 1) {

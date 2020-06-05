@@ -11,7 +11,7 @@ public class Main implements Serializable {
 
         ArrayList<String> list;
 
-        /** créaation fichier theme **/
+        /** création fichier theme **/
 //        list.add("Histoire");
 //        list.add("Geographie");
 //        list.add("Voiture");
@@ -23,36 +23,55 @@ public class Main implements Serializable {
 //        ObjectOutputStream a = new ObjectOutputStream(new FileOutputStream(fichier));
 //        a.writeObject(list);
 
-        ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier));
-        list = (ArrayList<String>) b.readObject();
+        ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier)); /** lecture du fichier**/
+        list = (ArrayList<String>) b.readObject();                                 /** lecture du fichier**/
         Themes themes = new Themes(list);
         themes.afficher();
-        themes.modifierTheme();
-        themes.afficher();
-        themes.selectionnerTheme();
-        themes.afficher();
+//        themes.modifierTheme();
+//        themes.afficher();
+//        themes.selectionnerTheme();
+//        themes.afficher();
         System.out.println("Selection de 5 th\u00e8mes random :");
         System.out.println(themes.selectionnerCinqThemes());
 
-        Question<QCM> quest1 = new Question<>(new QCM("Ma question 1", list, "test1"),1 , "theme");
-        quest1.afficher();
-        quest1.saisir();
-        Question<VF> quest2  = new Question<>(new VF("Ma question 2", true), 1, "theme");
-        quest2.afficher();
-        quest2.saisir();
-        Question<RC> quest3  = new Question<>(new RC("Ma question 3", "Rep"), 1, "theme");
-        quest3.afficher();
-        quest3.saisir();
 
-        LinkedList<Question<? extends QType>> qList = new LinkedList<>();
+        /** Initialisation des questions, adapter en fonction du thèmes et des questions**/
+//        ArrayList<String>  liste= new  ArrayList<String>();
+//        liste.add("sucre");
+//        liste.add("beurre");
+//        liste.add("ciment");
+//        Question<QCM> quest1 = new Question<>(new QCM("Quel element n'est aps necessaire dans un gateau ?", liste, "ciment"),1 , "Cuisine");
+//        quest1.afficher();
+//        quest1.saisir();
+//        Question<VF> quest2  = new Question<>(new VF("Le poulet basquaise vient de la région parisienne", false), 2, "Cuisine");
+//        quest2.afficher();
+//        quest2.saisir();
+//        Question<RC> quest3  = new Question<>(new RC("Quel instrument sert a battre des oeufs ? ", "unfouet"), 3, "Cuisine");
+//        quest3.afficher();
+//        quest3.saisir();
+//
+          LinkedList<Question<? extends QType>> qList = new LinkedList<>();
+//
+//        qList.add(quest1);
+//        qList.add(quest2);
+//        qList.add(quest3);
 
-        qList.add(quest1);
-        qList.add(quest2);
-        qList.add(quest3);
+        //ListeQuestions listeQuestions = new ListeQuestions(qList);
+//        listeQuestions.ajouterQuestion(quest1);
+//        listeQuestions.supprimerQuestion();
+//        listeQuestions.afficherListe();
 
+        /** Sérialisation de la question**/
+        fichier = new File("src/projet/themesQ/Cuisine.txt");
+//        ObjectOutputStream a = new ObjectOutputStream(new FileOutputStream(fichier));
+//        a.writeObject(qList);
+
+         b = new ObjectInputStream(new FileInputStream(fichier));     /** lecture du fichier**/
+         qList = (LinkedList<Question<? extends QType>>) b.readObject(); /** lecture du fichier**/
         ListeQuestions listeQuestions = new ListeQuestions(qList);
-        listeQuestions.ajouterQuestion(quest1);
-        listeQuestions.supprimerQuestion();
         listeQuestions.afficherListe();
+        qList.get(1).afficher();
+        qList.get(1).saisir();
+
     }
 }
