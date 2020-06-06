@@ -45,18 +45,23 @@ public class front extends JFrame {
 
     }
 
+
+
+    /** Permet de modifier les noms des joueurs séléctionnés**/
     private void saisisNom() throws IOException, ClassNotFoundException {
         File fichier = new File("src/projet/joueur/listeJoueurs.txt");
-        ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier)); /** lecture du fichier**/
-        ListeJ = (Vector<Joueur>) b.readObject();                                  /** lecture du fichier**/
+        /** lecture du fichier**/
+        ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier));
+        ListeJ = (Vector<Joueur>) b.readObject();
+        /** lecture du fichier**/
         EnsJoueurs Participants = new EnsJoueurs();
-        Participants.creer(ListeJ);
+        Participants.creer(ListeJ);           //on récupère toutes la liste des participants sauvegardée
         Participants.afficher();
-        Vector<Joueur> ListeP = new Vector<>(4);
+        Vector<Joueur> ListeP = new Vector<>(4); //on séléctionne 4 joueurs dans la liste qui vont devoir s'affronter
         for(int i=0; i<4;i++){
             int x = 0;
             Joueur selection = Participants.selectionnerJoueur();
-            while(x == 0){
+            while(x == 0){                                      // on vérifie qu'on ne peut pas sélectionner deux fois le meme joueur
                 if(!ListeP.contains(selection)){
                     x=1;
                 }else{
@@ -65,11 +70,11 @@ public class front extends JFrame {
             }
         ListeP.add(selection);
         }
-        EnsJoueurs PlayerManche = new EnsJoueurs();
-        PlayerManche.creer(ListeP);
-        ChoixJButton.addActionListener(new ActionListener() {
+        EnsJoueurs PlayerManche = new EnsJoueurs();            //on crée un autre ensemble de joueurs, qui nous permettra de ne traiter que
+        PlayerManche.creer(ListeP);                            // les joueurs séléctionné. Toutes modifications faites sur un joueurs de cette liste se fera aussi sur le joueur
+        ChoixJButton.addActionListener(new ActionListener() {   // de la liste principale
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+            public void actionPerformed(ActionEvent actionEvent) {  // on récupère les noms
                 if (!textFieldJ1.getText().equals("")){
                     PlayerManche.getJoueur(0).setNom(textFieldJ1.getText());
                 }
