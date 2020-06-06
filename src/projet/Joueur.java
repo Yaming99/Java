@@ -3,18 +3,25 @@ package projet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-//test
-public class Joueur {
-    private static int numero = 90;
-    private static char nom = 64; // '@' ascii
+
+public class Joueur implements Cloneable{
+    private  int numero = 100;
+//    private char nom = 64; // '@' ascii
+    private  String nom;
     private int score = 0;
     private String etat = "en attente";
     private ArrayList<String> listeEtats = new ArrayList<>(Arrays.asList("s\u00e9lectionn\u00e9", "gagnant", "super gagnant", "\u00e9limin\u00e9", "en attente"));
 
     public Joueur() {
         numero += 10;
-        nom++;
     }
+
+    public Joueur(String nomJ,int numJ) {
+        numero += numJ;
+        nom = nomJ;
+    }
+
+
 
     public void saisir() {
         // TODO saisir quoi ???????????
@@ -38,10 +45,4 @@ public class Joueur {
         this.etat = etat;
     }
 
-    public void majScore(int score) {
-        if (score <= 0) {
-            return;
-        }
-        this.score += score;
-    }
 }

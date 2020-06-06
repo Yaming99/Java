@@ -1,16 +1,23 @@
 package projet;
 
+import projet.graphic.front;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Vector;
 
 public class Main implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         //initialisation();
-        testSerialization();
+//        testSerialization();
+        testGraphe();
     }
-    
+
+    private static void testGraphe(){
+        front f = new front();
+    }
+
     private static void initialisation()  throws IOException, ClassNotFoundException{
         ArrayList<String> list = new ArrayList<>();
 
