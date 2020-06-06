@@ -1,10 +1,11 @@
 package projet;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Joueur implements Cloneable{
+public class Joueur implements Serializable {
     private  int numero = 100;
 //    private char nom = 64; // '@' ascii
     private  String nom;
@@ -16,7 +17,11 @@ public class Joueur implements Cloneable{
         numero += 10;
     }
 
-    public Joueur(String nomJ,int numJ) {
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Joueur(String nomJ, int numJ) {
         numero += numJ;
         nom = nomJ;
     }

@@ -9,16 +9,33 @@ import java.util.Vector;
 public class Main implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        //initialisation();
+        //initialisationthemesQ();
 //        testSerialization();
         testGraphe();
+        //initialisationjoueurs();
     }
 
-    private static void testGraphe(){
+    private static void testGraphe() throws IOException, ClassNotFoundException {
         front f = new front();
     }
 
-    private static void initialisation()  throws IOException, ClassNotFoundException{
+    private static void initialisationjoueurs()throws IOException{
+         Vector<Joueur> ListeJ = new Vector<>(20);
+         int numJoueurs=0;
+         char nomJ = 65;//'@' ascii
+         int i;
+
+         for(i=0;i<=19; i++){
+        Joueur J3 = new Joueur(Character.toString(nomJ),numJoueurs);
+        ListeJ.add(J3);
+        numJoueurs+=10;
+         nomJ+=1;}
+        File fichier = new File("src/projet/joueur/listeJoueurs.txt");
+        ObjectOutputStream a = new ObjectOutputStream(new FileOutputStream(fichier));
+        a.writeObject(ListeJ);
+    }
+
+    private static void initialisationthemesQ()  throws IOException{
         ArrayList<String> list = new ArrayList<>();
 
         /** création fichier theme **/

@@ -6,6 +6,11 @@ import projet.Joueur;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import java.util.Vector;
 
 
@@ -29,7 +34,7 @@ public class front extends JFrame {
     private Vector<Joueur> ListeJ = new Vector<>(20);
     private int numJoueurs = 0;
 
-    public front(){
+    public front() throws IOException, ClassNotFoundException {
         this.setContentPane(NomJoueur);
         this.setSize(500,200);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -40,31 +45,48 @@ public class front extends JFrame {
 
     }
 
-    private void saisisNom(){
+    private void saisisNom() throws IOException, ClassNotFoundException {
+        File fichier = new File("src/projet/joueur/listeJoueurs.txt");
+        ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier)); /** lecture du fichier**/
+        ListeJ = (Vector<Joueur>) b.readObject();                                  /** lecture du fichier**/
+        EnsJoueurs Participants = new EnsJoueurs();
+        Participants.creer(ListeJ);
+        Participants.afficher();
+        Vector<Joueur> ListeP = new Vector<>(4);
+        for(int i=0; i<4;i++){
+            int x = 0;
+            Joueur selection = Participants.selectionnerJoueur();
+            while(x == 0){
+                if(!ListeP.contains(selection)){
+                    x=1;
+                }else{
+                    selection = Participants.selectionnerJoueur();
+                }
+            }
+        ListeP.add(selection);
+        }
+        EnsJoueurs PlayerManche = new EnsJoueurs();
+        PlayerManche.creer(ListeP);
         ChoixJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                if (!textFieldJ1.getText().equals("")){
+                    PlayerManche.getJoueur(0).setNom(textFieldJ1.getText());
+                }
+                if (!textFieldJ2.getText().equals("")){
+                    PlayerManche.getJoueur(1).setNom(textFieldJ2.getText());
+                }
+                if (!textFieldJ3.getText().equals("")){
+                    PlayerManche.getJoueur(2).setNom(textFieldJ3.getText());
+                }
+                if (!textFieldJ4.getText().equals("")){
+                    PlayerManche.getJoueur(3).setNom(textFieldJ4.getText());
+                }
 
-                initJ(textFieldJ1, textFieldJ2);
-                initJ(textFieldJ3, textFieldJ4);
-                EnsJoueurs Participants = new EnsJoueurs();
-                Participants.creer(ListeJ);
+                PlayerManche.afficher();
                 Participants.afficher();
             }
         });
-    }
-
-    private void initJ(JTextField textFieldJ3, JTextField textFieldJ4) {
-        if (!textFieldJ3.getText().equals("")){
-            Joueur J3 = new Joueur(textFieldJ3.getText(),numJoueurs);
-            ListeJ.add(J3);
-            numJoueurs+=10;
-        }
-        if (!textFieldJ4.getText().equals("")){
-            Joueur J4 = new Joueur(textFieldJ4.getText(),numJoueurs);
-            ListeJ.add(J4);
-            numJoueurs+=10;
-        }
     }
 }
 

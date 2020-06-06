@@ -1,8 +1,9 @@
 package projet;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class EnsJoueurs {
+public class EnsJoueurs  {
     private Vector<Joueur> vector = new Vector<Joueur>(20);
 
     public void creer(Vector<Joueur> vector) {
@@ -15,7 +16,12 @@ public class EnsJoueurs {
     }
 
     public Joueur selectionnerJoueur() {
+
         int random = (int) (Math.random() * 100) % vector.size();
         return vector.get(random);
+    }
+
+    public Joueur getJoueur(int index) {
+        return vector.get(index);
     }
 }
