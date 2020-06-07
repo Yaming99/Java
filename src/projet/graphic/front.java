@@ -2,6 +2,7 @@ package projet.graphic;
 
 import projet.EnsJoueurs;
 import projet.Joueur;
+import projet.Phase;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 
-public class front extends JFrame {
+public class front  extends JFrame implements Phase {
 
 
     private JPanel NomJoueur;
@@ -109,6 +110,16 @@ public class front extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    @Override
+    public void SelectionnerJoueur() {
+
+    }
+
+    @Override
+    public void PhaseDeJeu() {
+
     }
 }
 
