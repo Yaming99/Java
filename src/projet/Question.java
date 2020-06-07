@@ -17,11 +17,8 @@ public class Question<T extends QType>  implements Serializable {
         return nb;
     }
 
-    public boolean saisir() {
+    public boolean saisir(String reponse) {
         boolean bonneRep;
-        System.out.println("Saisir la r\u00e9ponse : ");
-        Scanner sc = new Scanner(System.in);
-        String reponse = sc.nextLine();
         bonneRep = texte.check(reponse);
         if (bonneRep) System.out.println("R\u00e9ponse : " + "correcte.");
         else System.out.println("R\u00e9ponse : " + "fausse.");

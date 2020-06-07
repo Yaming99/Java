@@ -28,8 +28,11 @@ public class Joueur implements Serializable {
 
 
 
-    public void saisir() {
-        // TODO saisir quoi ???????????
+    public boolean saisir(Question Question) {
+        System.out.println("Saisir la r\u00e9ponse : ");
+        Scanner sc = new Scanner(System.in);
+        String reponse = sc.nextLine();
+        return Question.saisir(reponse);
     }
 
     public void afficher() {

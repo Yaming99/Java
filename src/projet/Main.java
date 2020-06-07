@@ -9,10 +9,10 @@ import java.util.Vector;
 public class Main implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        //initialisationthemesQ();
-//        testSerialization();
+       //initialisationthemesQ();
+       //testSerialization();
         testGraphe();
-        //initialisationjoueurs();
+       // initialisationjoueurs();
     }
 
     private static void testGraphe() throws IOException, ClassNotFoundException {
@@ -45,6 +45,10 @@ public class Main implements Serializable {
         list.add("Mathématiques");
         list.add("Francais");
         list.add("Cuisine");
+        list.add("Sport");
+        list.add("Politique");
+        list.add("Animaux");
+        list.add("Astronomie");
 
         File fichier = new File("src/projet/themesQ/themes.txt");
         ObjectOutputStream a = new ObjectOutputStream(new FileOutputStream(fichier));
@@ -56,24 +60,36 @@ public class Main implements Serializable {
         liste.add("Verdun");
         liste.add("Paris");
         Question<QCM> quest1 = new Question<>(new QCM("Ou a eut lieu la bataille de 1515 ?", liste, "Marignan"),1 , "Histoire");
-//        quest1.afficher();
-//        quest1.saisir();
-        Question<VF> quest2  = new Question<>(new VF("Les girondins sont un mouvement des lumières ", false), 2, "Histoire");
-//        quest2.afficher();
-//        quest2.saisir();
+        ArrayList<String>  liste2= new  ArrayList<String>();
+        liste2.add("Hamid Karzai ");
+        liste2.add("Hosni Moubarak");
+        liste2.add("Pervez Musharraf");
+        Question<QCM> quest4 = new Question<>(new QCM("Quel président égyptien a dû abandonner le pouvoir en 2011, suite au Printemps arabe ?", liste2, "Hosni Moubarak"),2 , "Histoire");
+        ArrayList<String>  liste3= new  ArrayList<String>();
+        liste3.add("Janvier");
+        liste3.add("Mai");
+        liste3.add("Août");
+        Question<QCM> quest7 = new Question<>(new QCM("Lors de quel mois de l’année 1789, la Révolution française a-t-elle débuté avec l’ouverture des États généraux ?", liste3, "Mai"),3 , "Histoire");
+        Question<VF> quest2  = new Question<>(new VF("Les girondins sont un mouvement des lumières ", false), 1, "Histoire");
+        Question<VF> quest5  = new Question<>(new VF("La revolte des Boxers a eut lieu en Chine ", true), 2, "Histoire");
+        Question<VF> quest8  = new Question<>(new VF("Fidel Castro a destitue Marcos Perez Jimenez en 1959", false), 3, "Histoire");
         Question<RC> quest3  = new Question<>(new RC("Comment appel t'on le fils héritier du roi de france", "ledauphin"), 3, "Histoire");
-//        quest3.afficher();
-//        quest3.saisir();
-
+        Question<RC> quest6  = new Question<>(new RC("Qui fut execute apres la révolution francaise le 16 octobre 1793 ?", "Lareine"), 2, "Histoire");
+        Question<RC> quest9  = new Question<>(new RC("Qui fur le premier roi de france ?", "clovis"), 3, "Histoire");
         LinkedList<Question<? extends QType>> qList = new LinkedList<>();
 
         qList.add(quest1);
         qList.add(quest2);
         qList.add(quest3);
-
+        qList.add(quest4);
+        qList.add(quest5);
+        qList.add(quest6);
+        qList.add(quest7);
+        qList.add(quest8);
+        qList.add(quest9);
 
         /** Sérialisation de la question**/
-        fichier = new File("src/projet/themesQ/Histoire.txt");
+        fichier = new File("src/projet/themesQ/Histoire.txt");//Creation du fichier de question pour un thème
         a = new ObjectOutputStream(new FileOutputStream(fichier));
         a.writeObject(qList);
     }
@@ -103,7 +119,9 @@ public class Main implements Serializable {
         qList = (LinkedList<Question<? extends QType>>) b.readObject(); /** lecture du fichier**/
         ListeQuestions listeQuestions = new ListeQuestions(qList);
         listeQuestions.afficherListe();
-        qList.get(1).afficher();
-        qList.get(1).saisir();
+       // qList.get(1).afficher();
+        //qList.get(1).saisir();
     }
+
+
 }
