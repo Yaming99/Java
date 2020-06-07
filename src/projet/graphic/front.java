@@ -16,11 +16,12 @@ import java.util.Vector;
 
 public class front extends JFrame {
 
+
     private JPanel NomJoueur;
     private JPanel Phase1;
     private JPanel frontGame;
     private JLabel J1Choix;
-
+    private JButton buttest;
 
    /** Variable pour la définition du nom des joueurs**/
     private JLabel J2Choix;
@@ -31,18 +32,20 @@ public class front extends JFrame {
     private JTextField textFieldJ3;
     private JTextField textFieldJ2;
     private JTextField textFieldJ4;
+
     private Vector<Joueur> ListeJ = new Vector<>(20);
     private int numJoueurs = 0;
+    private EnsJoueurs PlayerManche = new EnsJoueurs();
+    private EnsJoueurs Participants = new EnsJoueurs();
 
     public front() throws IOException, ClassNotFoundException {
+
         this.setContentPane(NomJoueur);
         this.setSize(500,200);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         saisisNom();
-
-
     }
 
 
@@ -52,10 +55,9 @@ public class front extends JFrame {
         File fichier = new File("src/projet/joueur/listeJoueurs.txt");
         /** lecture du fichier**/
         ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier));
-        ListeJ = (Vector<Joueur>) b.readObject();
+        ListeJ = (Vector<Joueur>) b.readObject();//on récupère toutes la liste des participants sauvegardée
         /** lecture du fichier**/
-        EnsJoueurs Participants = new EnsJoueurs();
-        Participants.creer(ListeJ);           //on récupère toutes la liste des participants sauvegardée
+        Participants.creer(ListeJ);             //on fait de cette liste un ensemble de joueurs
         Participants.afficher();
         Vector<Joueur> ListeP = new Vector<>(4); //on séléctionne 4 joueurs dans la liste qui vont devoir s'affronter
         for(int i=0; i<4;i++){
@@ -70,7 +72,7 @@ public class front extends JFrame {
             }
         ListeP.add(selection);
         }
-        EnsJoueurs PlayerManche = new EnsJoueurs();            //on crée un autre ensemble de joueurs, qui nous permettra de ne traiter que
+                //on crée un autre ensemble de joueurs, qui nous permettra de ne traiter que
         PlayerManche.creer(ListeP);                            // les joueurs séléctionné. Toutes modifications faites sur un joueurs de cette liste se fera aussi sur le joueur
         ChoixJButton.addActionListener(new ActionListener() {   // de la liste principale
             @Override
@@ -90,8 +92,23 @@ public class front extends JFrame {
 
                 PlayerManche.afficher();
                 Participants.afficher();
+                try {
+                    Phase1();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
+    }
+
+    private void Phase1() throws IOException, ClassNotFoundException {
+        this.setContentPane(Phase1);
+        this.setSize(500,200);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
     }
 }
 
