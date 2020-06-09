@@ -21,6 +21,10 @@ public class Joueur implements Serializable {
         this.nom = nom;
     }
 
+    public String getNom() {
+        return nom;
+    }
+
     public Joueur(String nomJ, int numJ) {
         numero += numJ;
         nom = nomJ;
@@ -53,4 +57,7 @@ public class Joueur implements Serializable {
         this.etat = etat;
     }
 
+    public void setScore(int score) {
+        this.score += score;
+    }
 }

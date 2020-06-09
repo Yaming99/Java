@@ -9,10 +9,11 @@ import java.util.Vector;
 public class Main implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-       //initialisationthemesQ();
+       initialisationthemesQ();
        //testSerialization();
+         initialisationjoueurs();
         testGraphe();
-       // initialisationjoueurs();
+
     }
 
     private static void testGraphe() throws IOException, ClassNotFoundException {
@@ -73,7 +74,7 @@ public class Main implements Serializable {
         Question<VF> quest2  = new Question<>(new VF("Les girondins sont un mouvement des lumières ", false), 1, "Histoire");
         Question<VF> quest5  = new Question<>(new VF("La revolte des Boxers a eut lieu en Chine ", true), 2, "Histoire");
         Question<VF> quest8  = new Question<>(new VF("Fidel Castro a destitue Marcos Perez Jimenez en 1959", false), 3, "Histoire");
-        Question<RC> quest3  = new Question<>(new RC("Comment appel t'on le fils héritier du roi de france", "ledauphin"), 3, "Histoire");
+        Question<RC> quest3  = new Question<>(new RC("Comment appel t'on le fils héritier du roi de france", "ledauphin"), 1, "Histoire");
         Question<RC> quest6  = new Question<>(new RC("Qui fut execute apres la révolution francaise le 16 octobre 1793 ?", "Lareine"), 2, "Histoire");
         Question<RC> quest9  = new Question<>(new RC("Qui fur le premier roi de france ?", "clovis"), 3, "Histoire");
         LinkedList<Question<? extends QType>> qList = new LinkedList<>();

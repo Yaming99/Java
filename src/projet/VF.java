@@ -7,6 +7,14 @@ public class VF implements QType {
     private String texte;
     private boolean bonneRep;
 
+    public String getTexte() {
+        return texte;
+    }
+
+    public boolean isBonneRep() {
+        return bonneRep;
+    }
+
     public VF(String texte, boolean bonneRep) {
         // Check l'input de l'user, pas de texte pour la question ou pas de reponse
         if (texte != null && !texte.isBlank())

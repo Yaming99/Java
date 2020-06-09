@@ -39,6 +39,10 @@ public class Question<T extends QType>  implements Serializable {
         this.theme = theme;
     }
 
+    public T getTexte() {
+        return texte;
+    }
+
     public int getNiveau() {
         return niveau;
     }

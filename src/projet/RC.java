@@ -4,6 +4,14 @@ public class RC implements QType {
     private String texte;
     private String bonneRep;
 
+    public String getTexte() {
+        return texte;
+    }
+
+    public String getBonneRep() {
+        return bonneRep;
+    }
+
     public RC(String texte, String bonneRep) {
         // Check l'input de l'user
         if (texte == null || bonneRep == null) {
@@ -30,6 +38,14 @@ public class RC implements QType {
 
     @Override
     public boolean check(String reponse) {
-        return reponse.equals(this.bonneRep);
+         boolean verif = false;
+         reponse = reponse.replaceAll("\\s+","");
+         reponse=reponse.toLowerCase();
+         bonneRep = bonneRep.replaceAll("\\s+","");
+         bonneRep = bonneRep.toLowerCase();
+         if (reponse.equals(bonneRep)){
+             verif = true;
+         }
+         return verif;
     }
 }

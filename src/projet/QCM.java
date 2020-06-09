@@ -11,6 +11,18 @@ public class QCM implements QType {
     private ArrayList<String> reponses;
     private String bonneRep;
 
+    public String gettexte() {
+        return texte;
+    }
+
+    public ArrayList<String> getReponses() {
+        return reponses;
+    }
+
+    public String getBonneRep() {
+        return bonneRep;
+    }
+
     public QCM(String texte, ArrayList<String> reponses, String bonneRep) {
         // Check l'input de l'user
         if (texte == null || reponses == null || bonneRep == null) {

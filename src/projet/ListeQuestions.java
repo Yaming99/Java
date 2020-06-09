@@ -1,6 +1,7 @@
 package projet;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Scanner;
@@ -48,8 +49,16 @@ public class ListeQuestions   implements Serializable {
             }
         } while (!input);
     }
-    /* TODO
+
     public Question<? extends QType> selectionnerQuestion(int niveau) {
+        LinkedList<Question<? extends QType>> q = new LinkedList<>();
+        for(int i=0; i<liste.size();i++){
+            if ((liste.get(i).getNiveau()) == niveau){
+                q.add(liste.get(i));
+            }
+        }
+        int  x = (int) (Math.random() * 100) % q.size();
+        return  q.get(x);
     }
-    */
+
 }

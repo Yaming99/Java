@@ -88,4 +88,12 @@ public class Themes {
         System.out.print("Th\u00e8me choisi : ");
         System.out.println(((indicateur < 0) || (indicateur >= themes.size())) ? "aucun.\nIndicateur : " + indicateur : themes.get(indicateur) + ".\nIndicateur : " + indicateur);
     }
+
+    public String get(int num){
+        return themes.get(num);
+    }
+
+    public int size(){
+        return themes.size();
+    }
 }
