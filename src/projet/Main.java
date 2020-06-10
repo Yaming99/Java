@@ -1,5 +1,6 @@
 package projet;
 
+import projet.graphic.ThemeVue;
 import projet.graphic.front;
 import java.io.*;
 import java.util.ArrayList;
@@ -13,7 +14,12 @@ public class Main implements Serializable {
        //testSerialization();
          initialisationjoueurs();
         testGraphe();
+        //testThemeVue();
 
+    }
+
+    private static void testThemeVue(){
+        ThemeVue t = new ThemeVue();
     }
 
     private static void testGraphe() throws IOException, ClassNotFoundException {
