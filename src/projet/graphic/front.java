@@ -7,9 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Vector;
+import java.util.*;
 
 
 public class front extends JFrame implements Phase {
@@ -76,6 +74,11 @@ public class front extends JFrame implements Phase {
     private JLabel Time3;
     private JLabel Time4;
     private JButton Next;
+    private JPanel menu;
+    private JLabel Welcome;
+    private JButton StartGame;
+    private JButton Quit;
+    private JButton EtatJ;
 
     /**
      * Variables divers et variées
@@ -86,8 +89,98 @@ public class front extends JFrame implements Phase {
     private EnsJoueurs Participants = new EnsJoueurs();
     private Themes themes;
     private int ChoixTheme;
+    private Question question;
 
     public front() throws IOException, ClassNotFoundException {
+
+        RcButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (question.isRC().check(RcAns.getText())) {
+                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).afficher();
+                } else {
+                    PlayerManche.getJoueur(numJoueurs).setScore(0);
+                }
+                finQuest();
+            }
+        });
+
+        QCMrep1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (QCMrep1.getText().equals(question.isQCM().getBonneRep())) {
+                    System.out.println("FFFFFF : " + numJoueurs);
+                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).afficher();
+
+                } else {
+                    PlayerManche.getJoueur(numJoueurs).setScore(0);
+                    System.out.println(numJoueurs);
+
+                }
+                finQuest();
+            }
+        });
+
+        QCMrep2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (QCMrep2.getText().equals(question.isQCM().getBonneRep())) {
+                    System.out.println(numJoueurs);
+                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).afficher();
+
+                } else {
+                    PlayerManche.getJoueur(numJoueurs).setScore(0);
+
+                }
+                finQuest();
+            }
+        });
+
+        QCMrep3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (QCMrep3.getText().equals(question.isQCM().getBonneRep())) {
+                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).afficher();
+
+                } else {
+                    PlayerManche.getJoueur(numJoueurs).setScore(0);
+
+                }
+                finQuest();
+            }
+        });
+
+        TrueB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+
+                if (question.isVF().isBonneRep()) {
+                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).afficher();
+                } else {
+                    PlayerManche.getJoueur(numJoueurs).setScore(0);
+                }
+                finQuest();
+            }
+        });
+
+        FalseB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                boolean verif = false;
+                if (!question.isVF().isBonneRep()) {
+                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).afficher();
+                } else {
+                    PlayerManche.getJoueur(numJoueurs).setScore(0);
+                }
+                finQuest();
+            }
+        });
 
         this.setContentPane(NomJoueur);
         this.setSize(500, 200);
@@ -108,7 +201,7 @@ public class front extends JFrame implements Phase {
         ListeJ = (Vector<Joueur>) b.readObject();//on récupère toutes la liste des participants sauvegardée
         /** lecture du fichier**/
         Participants.creer(ListeJ);             //on fait de cette liste un ensemble de joueurs
-       // Participants.afficher();
+        // Participants.afficher();
         Vector<Joueur> ListeP = new Vector<>(4); //on séléctionne 4 joueurs dans la liste qui vont devoir s'affronter
         for (int i = 0; i < 4; i++) {
             int x = 0;
@@ -141,7 +234,7 @@ public class front extends JFrame implements Phase {
                 }
 
                 PlayerManche.afficher();
-               // Participants.afficher();
+                // Participants.afficher();
                 try {
                     initPhase1();
                 } catch (IOException e) {
@@ -184,33 +277,82 @@ public class front extends JFrame implements Phase {
         qList = (LinkedList<Question<? extends QType>>) b.readObject(); /** lecture du fichier**/
         ListeQuestions listeQuestions = new ListeQuestions(qList);
 
-        Question<? extends QType> Qchoix = listeQuestions.selectionnerQuestion(1);
+        question = listeQuestions.selectionnerQuestion(1);
 
         //Qchoix.afficher();
         System.out.println("Checking type of object in Java using  getClass() ==>");
-        if (Qchoix.getTexte() instanceof QCM) {
+        if (question.getTexte() instanceof QCM) {
             System.out.println("Question_que_tu_test is instance of QCM");
-            QCM((Question<projet.QCM>) Qchoix);
+            QCM(question);
         }
-        if (Qchoix.getTexte() instanceof VF) {
+        if (question.getTexte() instanceof VF) {
             System.out.println("Question_que_tu_test is instance of VF");
-            VF((Question<projet.VF>) Qchoix);
+            VF(question);
         }
-        if (Qchoix.getTexte() instanceof RC) {
+        if (question.getTexte() instanceof RC) {
             System.out.println("Question_que_tu_test is instance of RC");
-            RC((Question<projet.RC>) Qchoix);
+            RC(question);
         }
-
-        ;
     }
 
     private void result() throws IOException, ClassNotFoundException {
+
+        resetClassement();
+
+        ArrayList<Joueur> classement = new ArrayList<>(PlayerManche.getVector());
+
+        Collections.sort(classement, new Comparator<Joueur>() {
+            @Override
+            public int compare(Joueur o1, Joueur o2) {
+                return Integer.compare(o1.getScore(), o2.getScore());
+            }
+        });
+
+        for (int i = 0; i < classement.size(); i++) {
+            if (i == classement.size() - 4) {
+                fourth.setText(classement.get(i).getNom());
+                Score4.setText(String.valueOf(classement.get(i).getScore()));
+                continue;
+            }
+            if (i == classement.size() - 3) {
+                Third.setText(classement.get(i).getNom());
+                Score3.setText(String.valueOf(classement.get(i).getScore()));
+                continue;
+            }
+            if (i == classement.size() - 2) {
+                Second.setText(classement.get(i).getNom());
+                Score2.setText(String.valueOf(classement.get(i).getScore()));
+                continue;
+            }
+            if (i == classement.size() - 1) {
+                First.setText(classement.get(i).getNom());
+                Score1.setText(String.valueOf(classement.get(i).getScore()));
+            }
+        }
+
+
         this.setContentPane(result);
         this.setSize(500, 200);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
+
+    }
+
+    private void resetClassement() {
+
+        fourth.setText("");
+        Score4.setText("");
+
+        Third.setText("");
+        Score3.setText("");
+
+        Second.setText("");
+        Score2.setText("");
+
+        First.setText("");
+        Score1.setText("");
 
     }
 
@@ -228,93 +370,7 @@ public class front extends JFrame implements Phase {
         QCMrep2.setText(Question.getTexte().getReponses().get(1));
         QCMrep3.setText(Question.getTexte().getReponses().get(2));
 
-        QCMrep1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (QCMrep1.getText().equals(Question.getTexte().getBonneRep())) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
-                    numJoueurs += 1;
-                } else {
-                    PlayerManche.getJoueur(numJoueurs).setScore(0);
-                    numJoueurs += 1;
-                }
-
-                if (numJoueurs < PlayerManche.size()) {
-                    try {
-                        Phase1();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        result();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        QCMrep2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (QCMrep2.getText().equals(Question.getTexte().getBonneRep())) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
-                    numJoueurs += 1;
-                } else {
-                    PlayerManche.getJoueur(numJoueurs).setScore(0);
-                    numJoueurs += 1;
-                }
-
-                if (numJoueurs < PlayerManche.size()) {
-                    try {
-                        Phase1();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        result();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        QCMrep3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (QCMrep3.getText().equals(Question.getTexte().getBonneRep())) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
-                    numJoueurs += 1;
-                } else {
-                    PlayerManche.getJoueur(numJoueurs).setScore(0);
-                    numJoueurs += 1;
-                }
-
-                if (numJoueurs < PlayerManche.size()) {
-                    try {
-                        Phase1();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        result();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-
     }
-
 
     private void VF(Question<VF> Question) throws IOException, ClassNotFoundException {
         this.setContentPane(VF);
@@ -327,61 +383,6 @@ public class front extends JFrame implements Phase {
         NomJVF.setText(PlayerManche.getJoueur(numJoueurs).getNom());
         VfQuest.setText(Question.getTexte().getTexte());
 
-        TrueB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                boolean verif = true;
-                if (Question.getTexte().isBonneRep()) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
-                } else {
-                    PlayerManche.getJoueur(numJoueurs).setScore(0);
-                }
-                numJoueurs += 1;
-                if (numJoueurs < PlayerManche.size()) {
-
-                    try {
-                        Phase1();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        result();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        FalseB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                boolean verif = false;
-                if (!Question.getTexte().isBonneRep()) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
-                } else {
-                    PlayerManche.getJoueur(numJoueurs).setScore(0);
-                }
-                numJoueurs += 1;
-                if (numJoueurs < PlayerManche.size()) {
-
-                    try {
-                        Phase1();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        result();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
 
     }
 
@@ -397,34 +398,26 @@ public class front extends JFrame implements Phase {
         RCquest.setText(Question.getTexte().getTexte());
         RcAns.setText("");
 
-        RcButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (Question.getTexte().check(RcAns.getText())) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
-                    numJoueurs += 1;
-                } else {
-                    PlayerManche.getJoueur(numJoueurs).setScore(0);
-                    numJoueurs += 1;
-                }
 
-                if (numJoueurs < PlayerManche.size()) {
+    }
 
-                    try {
-                        Phase1();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        result();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
+    private void finQuest() {
+        System.out.println("Entrer finQuest" + numJoueurs);
+        numJoueurs += 1;
+        System.out.println("Sortie finQuest" + numJoueurs);
+        if (numJoueurs < PlayerManche.size()) {
+            try {
+                Phase1();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
-        });
+        } else {
+            try {
+                result();
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void getTheme() throws IOException, ClassNotFoundException {
@@ -766,6 +759,29 @@ public class front extends JFrame implements Phase {
         Next = new JButton();
         Next.setText("Suite");
         result.add(Next, new com.intellij.uiDesigner.core.GridConstraints(5, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        menu = new JPanel();
+        menu.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(4, 3, new Insets(0, 0, 0, 0), -1, -1));
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        frontGame.add(menu, gbc);
+        Welcome = new JLabel();
+        Welcome.setText("Bienvenue dans le jeu");
+        menu.add(Welcome, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        final com.intellij.uiDesigner.core.Spacer spacer14 = new com.intellij.uiDesigner.core.Spacer();
+        menu.add(spacer14, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        final com.intellij.uiDesigner.core.Spacer spacer15 = new com.intellij.uiDesigner.core.Spacer();
+        menu.add(spacer15, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, 1, null, null, null, 0, false));
+        StartGame = new JButton();
+        StartGame.setText("Jouer");
+        menu.add(StartGame, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        Quit = new JButton();
+        Quit.setText("Quitter");
+        menu.add(Quit, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        EtatJ = new JButton();
+        EtatJ.setText("Score");
+        menu.add(EtatJ, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 3, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**
