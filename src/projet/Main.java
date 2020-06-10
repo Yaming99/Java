@@ -9,7 +9,7 @@ import java.util.Vector;
 public class Main implements Serializable {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-       initialisationthemesQ();
+       //initialisationthemesQ();
        //testSerialization();
          initialisationjoueurs();
         testGraphe();
@@ -42,7 +42,7 @@ public class Main implements Serializable {
         /** création fichier theme **/
         list.add("Histoire");
         list.add("Geographie");
-        list.add("Voiture");
+        list.add("Automobile");
         list.add("Mathématiques");
         list.add("Francais");
         list.add("Cuisine");

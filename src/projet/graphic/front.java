@@ -90,6 +90,9 @@ public class front extends JFrame implements Phase {
     private Themes themes;
     private int ChoixTheme;
     private Question question;
+    Joueur LastP1;
+    Joueur LastP2;
+    Joueur LastP3;
 
     public front() throws IOException, ClassNotFoundException {
         StartGame.addActionListener(new ActionListener() {
@@ -334,16 +337,19 @@ public class front extends JFrame implements Phase {
             if (i == classement.size() - 4) {
                 fourth.setText(classement.get(i).getNom());
                 Score4.setText(String.valueOf(classement.get(i).getScore()));
+                LastP1 = classement.get(i);
                 continue;
             }
             if (i == classement.size() - 3) {
                 Third.setText(classement.get(i).getNom());
                 Score3.setText(String.valueOf(classement.get(i).getScore()));
+                LastP2 = classement.get(i);
                 continue;
             }
             if (i == classement.size() - 2) {
                 Second.setText(classement.get(i).getNom());
                 Score2.setText(String.valueOf(classement.get(i).getScore()));
+                LastP3 = classement.get(i);
                 continue;
             }
             if (i == classement.size() - 1) {
@@ -359,14 +365,25 @@ public class front extends JFrame implements Phase {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-        String ToRemove;
-        if (!fourth.getText().equals("")){
-            ToRemove=fourth.getText();
-        }else if (!Third.getText().equals("")){
-            ToRemove=Third.getText();
-        }else if (!Second.getText().equals("")){
-            ToRemove=Second.getText();
+        int ToRemove = -1;
+        System.out.println(classement.indexOf(LastP1));
+        if (!fourth.getText().isEmpty()) {
+            ToRemove = classement.indexOf(LastP1);
+
+        } else if (!Third.getText().isEmpty()) {
+            ToRemove = classement.indexOf(LastP2);
+
+        } else if (!Second.getText().isEmpty()) {
+            ToRemove = classement.indexOf(LastP3);
+
         }
+        System.out.println("index du pas beau : " + ToRemove);
+        if (ToRemove != -1) {
+            PlayerManche.remove(classement.get(ToRemove));
+        }
+        PlayerManche.afficher();
+        PlayerManche.size();
+        System.out.println("joueur enlevé");
 
     }
 
