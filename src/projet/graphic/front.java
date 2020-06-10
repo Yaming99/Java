@@ -105,6 +105,13 @@ public class front extends JFrame implements Phase {
             }
         });
 
+        Quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
+            }
+        });
+
         RcButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -311,7 +318,7 @@ public class front extends JFrame implements Phase {
     }
 
     private void result() throws IOException, ClassNotFoundException {
-
+        numJoueurs = 0;
         resetClassement();
 
         ArrayList<Joueur> classement = new ArrayList<>(PlayerManche.getVector());
@@ -352,6 +359,14 @@ public class front extends JFrame implements Phase {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
+        String ToRemove;
+        if (!fourth.getText().equals("")){
+            ToRemove=fourth.getText();
+        }else if (!Third.getText().equals("")){
+            ToRemove=Third.getText();
+        }else if (!Second.getText().equals("")){
+            ToRemove=Second.getText();
+        }
 
     }
 
