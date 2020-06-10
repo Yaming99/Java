@@ -92,6 +92,18 @@ public class front extends JFrame implements Phase {
     private Question question;
 
     public front() throws IOException, ClassNotFoundException {
+        StartGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                try {
+                    saisisNom();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         RcButton.addActionListener(new ActionListener() {
             @Override
@@ -182,12 +194,12 @@ public class front extends JFrame implements Phase {
             }
         });
 
-        this.setContentPane(NomJoueur);
+        this.setContentPane(menu);
         this.setSize(500, 200);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        saisisNom();
+
     }
 
 
@@ -195,6 +207,9 @@ public class front extends JFrame implements Phase {
      * Permet de modifier les noms des joueurs séléctionnés
      **/
     private void saisisNom() throws IOException, ClassNotFoundException {
+        this.setContentPane(NomJoueur);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
         File fichier = new File("src/projet/joueur/listeJoueurs.txt");
         /** lecture du fichier**/
         ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier));
