@@ -34,6 +34,8 @@ public class Main implements Serializable {
      * @throws ClassNotFoundException the class not found exception
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+        /** IMPORTANT : n'utilisez la méthode initialisationthemesQ que lors de la première utilisation du jeu.
+         * Sinon, les nouveaux thèmes pérsonnalisés ne seront plus pris en compte**/
         initialisationthemesQ();
         //testSerialization();
         Vector<Joueur> vector = initialisationjoueurs();

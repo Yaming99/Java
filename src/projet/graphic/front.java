@@ -245,6 +245,7 @@ public class front extends JFrame implements Phase {
                         e.printStackTrace();
                     }
                 } else if (phase == 4) {
+                    PlayerManche.getJoueur(0).setEtat("Gagnant");
                     result.setVisible(false);
                     dispose();
                     Main.start(Participants.getVector());
@@ -613,7 +614,7 @@ public class front extends JFrame implements Phase {
         First.setText("");
         Score1.setText("");
         Time1.setText("");
-        
+
 
 
     }
