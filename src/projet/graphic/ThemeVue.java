@@ -808,16 +808,17 @@ public class ThemeVue extends JFrame {
         validerButton = new JButton();
         validerButton.setText("Valider");
         panel.add(validerButton, new com.intellij.uiDesigner.core.GridConstraints(0, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        precedentButton = new JButton();
+        precedentButton.setText("Précédent");
+        panel.add(precedentButton, new com.intellij.uiDesigner.core.GridConstraints(1, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_NORTH, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         label.setLabelFor(textField);
     }
 
     /**
-     * $$$ get root component $$$ j component.
-     *
-     * @return the j component
      * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
         return panel;
     }
+
 }

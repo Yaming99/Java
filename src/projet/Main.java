@@ -38,7 +38,7 @@ public class Main implements Serializable {
         //testSerialization();
         Vector<Joueur> vector = initialisationjoueurs();
         start(vector);
-        testGraphe();
+
         //testThemeVue();
 
     }
@@ -71,6 +71,13 @@ public class Main implements Serializable {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 frame.dispose();
+                try {
+                    testGraphe();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 // TODO ta fonction pour demarrer le jeu
             }
         });
@@ -98,6 +105,7 @@ public class Main implements Serializable {
     }
 
     private static void testGraphe() throws IOException, ClassNotFoundException {
+
         front f = new front();
     }
 

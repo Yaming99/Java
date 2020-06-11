@@ -104,14 +104,112 @@ public class front extends JFrame implements Phase {
     private Joueur LastP2;
     private Joueur LastP3;
     private int phase;
+    private int play2;
+    private int score;
     private ArrayList<String> ThemesP2 = new ArrayList<>();
 
 
     public front() throws IOException, ClassNotFoundException {
+
+        buttonYheme1P2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String th = buttonYheme1P2.getText();
+                int tormv = ThemesP2.indexOf(th);
+                ThemesP2.remove(tormv);
+                try {
+                    QuestP1(th);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        buttonTheme2P2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String th = buttonTheme2P2.getText();
+                int tormv = ThemesP2.indexOf(th);
+                ThemesP2.remove(tormv);
+                try {
+                    QuestP1(th);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonTheme3P2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String th = buttonTheme3P2.getText();
+                int tormv = ThemesP2.indexOf(th);
+                ThemesP2.remove(tormv);
+                try {
+                    QuestP1(th);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonTheme4P2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String th = buttonTheme4P2.getText();
+                int tormv = ThemesP2.indexOf(th);
+                ThemesP2.remove(tormv);
+                try {
+                    QuestP1(th);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonTheme5P2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String th = buttonTheme5P2.getText();
+                int tormv = ThemesP2.indexOf(th);
+                ThemesP2.remove(tormv);
+                try {
+                    QuestP1(th);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        buttonTheme6P2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String th = buttonTheme6P2.getText();
+                int tormv = ThemesP2.indexOf(th);
+                ThemesP2.remove(tormv);
+                try {
+                    QuestP1(th);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         StartGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                phase = 1;
+
                 try {
                     saisisNom();
                 } catch (IOException e) {
@@ -150,12 +248,18 @@ public class front extends JFrame implements Phase {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (question.isRC().check(RcAns.getText())) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).setScore(score);
                     PlayerManche.getJoueur(numJoueurs).afficher();
                 } else {
                     PlayerManche.getJoueur(numJoueurs).setScore(0);
                 }
-                finQuest();
+                try {
+                    finQuest();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -164,7 +268,7 @@ public class front extends JFrame implements Phase {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (QCMrep1.getText().equals(question.isQCM().getBonneRep())) {
                     System.out.println("FFFFFF : " + numJoueurs);
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).setScore(score);
                     PlayerManche.getJoueur(numJoueurs).afficher();
 
                 } else {
@@ -172,7 +276,13 @@ public class front extends JFrame implements Phase {
                     System.out.println(numJoueurs);
 
                 }
-                finQuest();
+                try {
+                    finQuest();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -181,14 +291,20 @@ public class front extends JFrame implements Phase {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (QCMrep2.getText().equals(question.isQCM().getBonneRep())) {
                     System.out.println(numJoueurs);
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).setScore(score);
                     PlayerManche.getJoueur(numJoueurs).afficher();
 
                 } else {
                     PlayerManche.getJoueur(numJoueurs).setScore(0);
 
                 }
-                finQuest();
+                try {
+                    finQuest();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -196,14 +312,20 @@ public class front extends JFrame implements Phase {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (QCMrep3.getText().equals(question.isQCM().getBonneRep())) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).setScore(score);
                     PlayerManche.getJoueur(numJoueurs).afficher();
 
                 } else {
                     PlayerManche.getJoueur(numJoueurs).setScore(0);
 
                 }
-                finQuest();
+                try {
+                    finQuest();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -212,12 +334,18 @@ public class front extends JFrame implements Phase {
             public void actionPerformed(ActionEvent actionEvent) {
 
                 if (question.isVF().isBonneRep()) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).setScore(score);
                     PlayerManche.getJoueur(numJoueurs).afficher();
                 } else {
                     PlayerManche.getJoueur(numJoueurs).setScore(0);
                 }
-                finQuest();
+                try {
+                    finQuest();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -226,20 +354,28 @@ public class front extends JFrame implements Phase {
             public void actionPerformed(ActionEvent actionEvent) {
                 boolean verif = false;
                 if (!question.isVF().isBonneRep()) {
-                    PlayerManche.getJoueur(numJoueurs).setScore(2);
+                    PlayerManche.getJoueur(numJoueurs).setScore(score);
                     PlayerManche.getJoueur(numJoueurs).afficher();
                 } else {
                     PlayerManche.getJoueur(numJoueurs).setScore(0);
                 }
-                finQuest();
+                try {
+                    finQuest();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
-        this.setContentPane(menu);
+        this.setContentPane(NomJoueur);
         this.setSize(500, 200);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+        phase = 1;
+        saisisNom();
 
     }
 
@@ -248,9 +384,6 @@ public class front extends JFrame implements Phase {
      * Permet de modifier les noms des joueurs séléctionnés
      **/
     private void saisisNom() throws IOException, ClassNotFoundException {
-        this.setContentPane(NomJoueur);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
         File fichier = new File("src/projet/joueur/listeJoueurs.txt");
         /** lecture du fichier**/
         ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier));
@@ -312,6 +445,7 @@ public class front extends JFrame implements Phase {
     private void Phase1() throws IOException, ClassNotFoundException {
         System.out.println("nuJ=" + numJoueurs);
         System.out.println(PlayerManche.size());
+        score = 2;
         String th = SelectThemes();
         System.out.println(th);
         QuestP1(th);
@@ -327,7 +461,7 @@ public class front extends JFrame implements Phase {
         qList = (LinkedList<Question<? extends QType>>) b.readObject(); /** lecture du fichier**/
         ListeQuestions listeQuestions = new ListeQuestions(qList);
 
-        question = listeQuestions.selectionnerQuestion(1);
+        question = listeQuestions.selectionnerQuestion(phase);
 
         //Qchoix.afficher();
         System.out.println("Checking type of object in Java using  getClass() ==>");
@@ -346,13 +480,14 @@ public class front extends JFrame implements Phase {
     }
 
     private void Phase2() throws IOException, ClassNotFoundException {
-        this.setContentPane(SelectthemeP2);
-        this.setVisible(true);
+
         System.out.println(ThemesP2.toString());
         ThemesP2 = themes.selectionner6Themes();
         System.out.println(ThemesP2.toString());
         initP2Button();
-
+        numJoueurs = 0;
+        score = 3;
+        play2 = 0;
 
     }
 
@@ -440,31 +575,47 @@ public class front extends JFrame implements Phase {
     }
 
     private void initP2Button() {
+        this.setContentPane(SelectthemeP2);
+        this.setVisible(true);
+
+        NomJP2.setText(PlayerManche.getJoueur(numJoueurs).getNom());
+        buttonTheme6P2.setVisible(false);
+        buttonTheme5P2.setVisible(false);
+        buttonTheme4P2.setVisible(false);
+        buttonTheme3P2.setVisible(false);
+        buttonTheme2P2.setVisible(false);
+        buttonYheme1P2.setVisible(false);
         for (int i = 0; i < ThemesP2.size(); i++) {
             if (i == ThemesP2.size() - 6) {
                 buttonTheme6P2.setText(ThemesP2.get(i));
+                buttonTheme6P2.setVisible(true);
                 continue;
             }
             if (i == ThemesP2.size() - 5) {
                 buttonTheme5P2.setText(ThemesP2.get(i));
+                buttonTheme5P2.setVisible(true);
                 continue;
             }
             if (i == ThemesP2.size() - 4) {
                 buttonTheme4P2.setText(ThemesP2.get(i));
+                buttonTheme4P2.setVisible(true);
                 continue;
             }
             if (i == ThemesP2.size() - 3) {
                 buttonTheme3P2.setText(ThemesP2.get(i));
+                buttonTheme3P2.setVisible(true);
                 continue;
             }
             if (i == ThemesP2.size() - 2) {
                 buttonTheme2P2.setText(ThemesP2.get(i));
+                buttonTheme2P2.setVisible(true);
                 continue;
             }
             if (i == ThemesP2.size() - 1) {
                 buttonYheme1P2.setText(ThemesP2.get(i));
-
+                buttonYheme1P2.setVisible(true);
             }
+
         }
     }
 
@@ -513,16 +664,30 @@ public class front extends JFrame implements Phase {
 
     }
 
-    private void finQuest() {
+    private void finQuest() throws IOException, ClassNotFoundException {
         System.out.println("Entrer finQuest" + numJoueurs);
         numJoueurs += 1;
         System.out.println("Sortie finQuest" + numJoueurs);
-        if (numJoueurs < PlayerManche.size()) {
-            try {
-                Phase1();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+        System.out.println(PlayerManche.size());
+        if (phase == 2) {
+            System.out.println("P2 numJ:" + numJoueurs);
+            System.out.println("P2 play = " + play2);
+            if (numJoueurs == 3 && play2 == 0) {
+                numJoueurs = 0;
+                play2 = 1;
             }
+            if (ThemesP2.size() != 0) {
+                initP2Button();
+            } else {
+                result();
+            }
+
+        } else if (numJoueurs < PlayerManche.size()) {
+            System.out.println(phase);
+            if (phase == 1) {
+                Phase1();
+            }
+
         } else {
             try {
                 result();
