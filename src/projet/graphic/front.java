@@ -757,20 +757,6 @@ public class front extends JFrame implements Phase {
                 result();
             }
         }
-//            if (numJoueurs < PlayerManche.size()) {
-//            System.out.println(phase);
-//            if (phase == 1) {
-//
-//                Phase1();
-//            }
-//
-//        } else {
-//            try {
-//                result();
-//            } catch (IOException | ClassNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     private void getTheme() throws IOException, ClassNotFoundException {
