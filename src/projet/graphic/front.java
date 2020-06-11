@@ -600,15 +600,21 @@ public class front extends JFrame implements Phase {
 
         fourth.setText("");
         Score4.setText("");
+        Time4.setText("");
 
         Third.setText("");
         Score3.setText("");
+        Time3.setText("");
 
         Second.setText("");
         Score2.setText("");
+        Time2.setText("");
 
         First.setText("");
         Score1.setText("");
+        Time1.setText("");
+        
+
 
     }
 
