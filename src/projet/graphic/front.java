@@ -469,8 +469,8 @@ public class front extends JFrame implements Phase {
     private void QuestP1(String Theme) throws IOException, ClassNotFoundException {
 
         LinkedList<Question<? extends QType>> qList;
-        //File fichier = new File("src/projet/themesQ/" + Theme + ".txt");
-        File fichier = new File("src/projet/themesQ/Histoire.txt");
+        File fichier = new File("src/projet/themesQ/" + Theme + ".txt");
+        //File fichier = new File("src/projet/themesQ/Histoire.txt");
         ObjectInputStream b = new ObjectInputStream(new FileInputStream(fichier));     /** lecture du fichier**/
         qList = (LinkedList<Question<? extends QType>>) b.readObject(); /** lecture du fichier**/
         ListeQuestions listeQuestions = new ListeQuestions(qList);
