@@ -1,19 +1,16 @@
 package projet;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+import javax.swing.*;
+import javax.swing.table.*;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -67,25 +64,56 @@ public class EnsJoueurs {
     }
 
     /**
+     * Back main.
+     *
+     * @param frame the frame
+     */
+    public void backMain(JFrame frame) {
+        try {
+            frame.dispose();
+            Main.main(null);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Create window.
      */
     public void createWindow() {
         JPanel panel = new JPanel();
+        JButton back = new JButton("Pr\u00e9c\u00e9dent");
+        panel.add(back);
         panel.add(scrollPane);
         // config fenetre
-        scrollPane.setBounds(20, 70, 1800, 300);
+        back.setBounds(330, 10, 150, 30);
+        scrollPane.setBounds(10, 10, 320, 350);
         model.setColumnIdentifiers(columnNames); // nom des columns
         table.setModel(model);
         table.setFillsViewportHeight(true);
         JFrame frame = new JFrame();
         frame.setContentPane(panel);
         frame.getContentPane().setLayout(null);
-        frame.setSize(500, 300);
+        frame.setSize(500, 400);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setTitle("Modifier un th\u00e8me");
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        back.addActionListener(actionEvent -> backMain(frame));
+        DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+        cellRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(0).setCellRenderer(cellRenderer); // centre les donnees
+        table.getColumnModel().getColumn(1).setCellRenderer(cellRenderer);
+        table.getColumnModel().getColumn(2).setCellRenderer(cellRenderer);
+        // ordre croissant decroissant pour la table
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(table.getModel());
+        table.setRowSorter(sorter);
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+        int columnIndexToSort = 2;
+        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.ASCENDING));
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
     }
 
     /**
