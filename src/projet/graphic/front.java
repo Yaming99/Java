@@ -108,6 +108,9 @@ public class front extends JFrame implements Phase {
     private int score;
     private int p3;
     private ArrayList<String> ThemesP2 = new ArrayList<>();
+    private String P1;
+    private int ph1;
+    private int pha1;
 
 
     public front() throws IOException, ClassNotFoundException {
@@ -453,6 +456,8 @@ public class front extends JFrame implements Phase {
         getTheme();
         //themes.afficher();
         ChoixTheme = (int) (Math.random() * 100) % themes.size();
+        ph1 = 0;
+        pha1 = 0;
         Phase1();
     }
 
@@ -460,10 +465,9 @@ public class front extends JFrame implements Phase {
         System.out.println("nuJ=" + numJoueurs);
         System.out.println(PlayerManche.size());
         score = 2;
-        String th = SelectThemes();
-        System.out.println(th);
-        QuestP1(th);
-
+        P1 = SelectThemes();
+        System.out.println(P1);
+        QuestP1(P1);
     }
 
     private void QuestP1(String Theme) throws IOException, ClassNotFoundException {
@@ -732,19 +736,34 @@ public class front extends JFrame implements Phase {
                 result();
             }
 
-        } else if (numJoueurs < PlayerManche.size()) {
-            System.out.println(phase);
-            if (phase == 1) {
+        } else if (phase == 1) {
+            ph1++;
+            if (ph1 < 4 && pha1 < 4) {
+                QuestP1(P1);
+            } else if (ph1 == 4) {
+                pha1++;
+                ph1 = 0;
+                numJoueurs = 0;
                 Phase1();
             }
-
-        } else {
-            try {
+            if (pha1 == 4) {
                 result();
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
             }
         }
+//            if (numJoueurs < PlayerManche.size()) {
+//            System.out.println(phase);
+//            if (phase == 1) {
+//
+//                Phase1();
+//            }
+//
+//        } else {
+//            try {
+//                result();
+//            } catch (IOException | ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     private void getTheme() throws IOException, ClassNotFoundException {
