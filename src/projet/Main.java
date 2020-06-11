@@ -34,7 +34,7 @@ public class Main implements Serializable {
      * @throws ClassNotFoundException the class not found exception
      */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        //initialisationthemesQ();
+        initialisationthemesQ();
         //testSerialization();
         Vector<Joueur> vector = initialisationjoueurs();
         start(vector);
@@ -44,6 +44,7 @@ public class Main implements Serializable {
     }
 
     public static void start(Vector<Joueur> vector) {
+
         JFrame frame = new JFrame();
         JPanel panel = new JPanel(new BorderLayout());
         JButton jouer = new JButton("Jouer au jeu");
@@ -109,7 +110,7 @@ public class Main implements Serializable {
         front f = new front();
     }
 
-    private static Vector<Joueur> initialisationjoueurs() throws IOException {
+    public static Vector<Joueur> initialisationjoueurs() throws IOException {
         Vector<Joueur> ListeJ = new Vector<>(20);
         int numJoueurs = 0;
         char nomJ = 65;//'@' ascii

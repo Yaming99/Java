@@ -106,6 +106,7 @@ public class front extends JFrame implements Phase {
     private int phase;
     private int play2;
     private int score;
+    private int p3;
     private ArrayList<String> ThemesP2 = new ArrayList<>();
 
 
@@ -232,6 +233,19 @@ public class front extends JFrame implements Phase {
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
+                } else if (phase == 3) {
+                    try {
+                        initP3();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else if (phase == 4) {
+                    result.setVisible(false);
+                    dispose();
+                    Main.start(Participants.getVector());
+
                 }
 
             }
@@ -267,9 +281,9 @@ public class front extends JFrame implements Phase {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (QCMrep1.getText().equals(question.isQCM().getBonneRep())) {
-                    System.out.println("FFFFFF : " + numJoueurs);
+
                     PlayerManche.getJoueur(numJoueurs).setScore(score);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
+
 
                 } else {
                     PlayerManche.getJoueur(numJoueurs).setScore(0);
@@ -290,9 +304,9 @@ public class front extends JFrame implements Phase {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (QCMrep2.getText().equals(question.isQCM().getBonneRep())) {
-                    System.out.println(numJoueurs);
+
                     PlayerManche.getJoueur(numJoueurs).setScore(score);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
+
 
                 } else {
                     PlayerManche.getJoueur(numJoueurs).setScore(0);
@@ -313,7 +327,7 @@ public class front extends JFrame implements Phase {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (QCMrep3.getText().equals(question.isQCM().getBonneRep())) {
                     PlayerManche.getJoueur(numJoueurs).setScore(score);
-                    PlayerManche.getJoueur(numJoueurs).afficher();
+
 
                 } else {
                     PlayerManche.getJoueur(numJoueurs).setScore(0);
@@ -352,7 +366,7 @@ public class front extends JFrame implements Phase {
         FalseB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                boolean verif = false;
+
                 if (!question.isVF().isBonneRep()) {
                     PlayerManche.getJoueur(numJoueurs).setScore(score);
                     PlayerManche.getJoueur(numJoueurs).afficher();
@@ -491,9 +505,29 @@ public class front extends JFrame implements Phase {
 
     }
 
+    private void initP3() throws IOException, ClassNotFoundException {
+        score = 5;
+        numJoueurs = 0;
+        p3 = 0;
+        play2 = 0;
+        PlayerManche.afficher();
+        System.out.println("Pmanche =" + PlayerManche.size());
+        Phase3();
+    }
+
+    private void Phase3() throws IOException, ClassNotFoundException {
+        ChoixTheme = (int) (Math.random() * 100) % themes.size();
+        String Th = SelectThemes();
+        QuestP1(Th);
+    }
+
     private void result() throws IOException, ClassNotFoundException {
         numJoueurs = 0;
         resetClassement();
+
+        if (phase == 3) {
+            Next.setText("Fin du jeu");
+        }
 
         ArrayList<Joueur> classement = new ArrayList<>(PlayerManche.getVector());
 
@@ -669,6 +703,22 @@ public class front extends JFrame implements Phase {
         numJoueurs += 1;
         System.out.println("Sortie finQuest" + numJoueurs);
         System.out.println(PlayerManche.size());
+        if (phase == 3) {
+            p3++;
+            System.out.println("Phase de jeu: " + phase);
+            System.out.println("index Jp3: " + numJoueurs);
+            System.out.println(" taille participant:" + PlayerManche.size());
+            if (numJoueurs == 2 && (play2 == 0 || play2 == 1)) {
+                numJoueurs = 0;
+                play2++;
+            }
+
+            if (p3 < 6) {
+                Phase3();
+            } else {
+                result();
+            }
+        }
         if (phase == 2) {
             System.out.println("P2 numJ:" + numJoueurs);
             System.out.println("P2 play = " + play2);
